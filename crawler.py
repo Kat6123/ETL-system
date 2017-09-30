@@ -5,7 +5,6 @@ import sys
 import pyvirtualdisplay.smartdisplay as smartdisplay
 import selenium.webdriver
 import contextlib
-import BeautifulSoup
 import time
 
 BROWSER_DOWNLOAD_PAUSE = 2
@@ -24,9 +23,9 @@ def main():
 
             driver.execute_script("window.scrollTo"
                                   "(0, document.body.scrollHeight);")
-            soup = BeautifulSoup.BeautifulSoup(driver.page_source)
+
             with open(output_html, "w") as fp:
-                fp.write(soup.prettify())
+                fp.write(driver.page_source)
 
 
 if __name__ == '__main__':
