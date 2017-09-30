@@ -25,7 +25,7 @@ def main():
                                   "(0, document.body.scrollHeight);")
 
             with open(output_html, "w") as fp:
-                fp.write(driver.page_source)
+                fp.write(driver.page_source.encode('utf-8'))
 
 
 if __name__ == '__main__':
