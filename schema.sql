@@ -1,8 +1,8 @@
-DROP SCHEMA if exists hello CASCADE;
+DROP SCHEMA if exists snap_jobs CASCADE;
 
-CREATE SCHEMA hello;
+CREATE SCHEMA snap_jobs;
 
-CREATE TABLE hello."Jobs"
+CREATE TABLE snap_jobs."Jobs"
 (
     job_id BIGSERIAL PRIMARY KEY,
     job_title character varying(150),
