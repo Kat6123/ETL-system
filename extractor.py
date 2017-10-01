@@ -2,27 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import csv
-import bs4
 
-output_html = "jobs.html"
-output_csv = "jobs.csv"
+from etl_functionality import extract_into_csv
 
 
 def main():
-    title_tuple = ("Job Title", "Category", "Status", "Location")
-    with open(output_html, "r") as fp:
-        soup = bs4.BeautifulSoup(fp, "lxml")
+    _, input_html, output_csv = sys.argv
 
-    with open(output_csv, "wb") as fp:
-        csv_writer = csv.writer(fp)
-        csv_writer.writerow(title_tuple)
-
-        for row in soup.find_all('tr'):
-            row_to_write = tuple(
-                (r.encode('utf-8') for r in row.stripped_strings)
-            )
-            csv_writer.writerow(row_to_write)
+    extract_into_csv(input_html, output_csv)
 
 
 if __name__ == '__main__':
