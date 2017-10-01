@@ -80,9 +80,9 @@ DATABASES = {
         'OPTIONS': {
             'options': '-c search_path=snap_jobs'
         },
-        'NAME': 'kat',
-        'USER': 'kat',
-        'PASSWORD': '3g1o4h5t',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': '',
         'PORT': '',
     }

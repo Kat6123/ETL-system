@@ -7,8 +7,15 @@ from .models import Jobs
 
 
 def index(request, location):
-    jobs_in_location = Jobs.objects.filter(location=location).values_list(
-        'job_title', 'category', 'status', 'location')
-    return HttpResponse(
-        "\n".join((", ".join(job) for job in jobs_in_location))
+    if not location:
+        jobs_in_location = Jobs.objects.all()
+    else:
+        jobs_in_location = Jobs.objects.filter(location=location)
+
+    values = jobs_in_location.values_list(
+        'job_title', 'category', 'status', 'location'
     )
+
+    job_rows = (", ".join(job) for job in values)
+
+    return HttpResponse("\n".join(job_rows))

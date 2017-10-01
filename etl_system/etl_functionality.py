@@ -43,19 +43,23 @@ def extract_into_csv(input_html, output_csv):
 
 
 def download_to_bd(input_csv):
-    with psycopg2.connect(**(settings.DATABASE_SETTINGS)) as db:
-        cur = db.cursor()
+    try:
+        with psycopg2.connect(**(settings.DATABASE_SETTINGS)) as db:
+            cur = db.cursor()
 
-        query = """INSERT into snap_jobs."Jobs"
-                (job_title, category, status, location)
-                VALUES ('{}', '{}', '{}', '{}')"""
+            query = """INSERT into snap_jobs."Jobs"
+                    (job_title, category, status, location)
+                    VALUES ('{}', '{}', '{}', '{}')"""
 
-        with open(input_csv) as fp:
-            csv_reader = csv.reader(fp)
+            with open(input_csv) as fp:
+                csv_reader = csv.reader(fp)
 
-            csv_reader.next()
+                csv_reader.next()
 
-            for row in csv_reader:
-                cur.execute(query.format(*row))
+                for row in csv_reader:
+                    cur.execute(query.format(*row))
 
-        db.commit()
+            db.commit()
+
+    except psycopg2.IntegrityError as error:
+        print(error)
